@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const VerifyOtp = () => {
   const navigate=useNavigate();
- 
+
   const [otp, setOtp] = useState(['', '', '', '']);
 
   const handleChange = (e, index) => {
@@ -26,8 +26,8 @@ const VerifyOtp = () => {
   };
   const capValue = () => {
     const otpValue = otp.join(''); 
-    
-    axios.post('http://localhost:3000/api/verifyOtp',otpValue)
+console.log(otpValue);
+    axios.get('http://localhost:3000/api/verifyOtp',otpValue)
     .then((res)=>{
       alert(res.data.message);
       navigate('/home');
@@ -53,11 +53,8 @@ const VerifyOtp = () => {
             inputProps={{ maxLength: 1, style: { textAlign: 'center', marginBottom:'20px'} }}
             />
             
-            
         ))}
-                
     </Box>
-    
     <Button variant="contained" onClick={capValue} style={{ marginLeft:'45vw',marginTop:'10vh' }}>Submit</Button>
     </>
     

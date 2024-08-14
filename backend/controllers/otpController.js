@@ -65,20 +65,25 @@ const postEmail=async(req,res)=>{
 
 const verifyOtp = async (req, res) => {
     try {
-        const postOtp = req.body.otp;
-        const dbOtp = await dataModel.findOne({ otp: postOtp }); 
+        const { otp } = req.body;
+
+        if (!otp || typeof otp !== 'string') {
+            return res.status(400).json({ message: 'Invalid OTP format' });
+        }
+
+        const dbOtp = await dataModel.findOne({ otp });
 
         if (dbOtp) {
-            res.status(200).json({ message: 'Otp matched' });
+
+            res.status(200).json({ message: 'OTP matched' });
         } else {
-            res.status(400).json({ message: 'Otp mismatch' });
+            res.status(400).json({ message: 'OTP mismatch' });
         }
     } catch (error) {
         console.error('Server error:', error);
         res.status(500).json({ message: 'Server error' });
     }
 };
-
 //---------------------------------
 
 
